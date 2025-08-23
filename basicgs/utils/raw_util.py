@@ -50,7 +50,10 @@ def load_metadata(json_file, device=DEVICE):
     cfa_pattern = [int(v) for v in cfa_pattern.split(' ')]
 
     wl = torch.tensor(float(wl), device=device)
-    bl = torch.tensor(float(bl), device=device)
+    if type(bl) is str:
+        bl = torch.tensor(float(bl.split()[0]), device=device)
+    else:
+        bl = torch.tensor(float(bl), device=device)
     wb = torch.tensor(wb, device=device)
     ccm2 = torch.tensor(ccm2, device=device).reshape(3, 3)
     shutter = torch.tensor(shutter, device=device)
