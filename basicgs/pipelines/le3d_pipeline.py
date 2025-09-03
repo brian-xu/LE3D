@@ -230,8 +230,6 @@ class LE3DPipeline(GSBasePipeline):
     def get_current_visuals(self):
         out_dict = super().get_current_visuals()
         if self.other_isp_meta is not None:
-            out_dict['gt']     = finish_isp(self.gt.detach(), self.curr_camera.meta_data,
-                                            **self.other_isp_meta).cpu()
-            out_dict['result'] = finish_isp(self.output.detach(), self.curr_camera.meta_data,
-                                            **self.other_isp_meta).cpu()
+            out_dict['gt']     = self.gt.detach()
+            out_dict['result'] = self.output.detach()
         return out_dict

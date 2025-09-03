@@ -33,12 +33,12 @@ def test_pipeline(root_path):
         test_loaders.append(test_set)
 
     # create model
-    model = build_pipeline(opt)
+    model = build_pipeline(opt, test_loaders[0])
 
     for test_loader in test_loaders:
         test_set_name = test_loader.opt['name']
         logger.info(f'Testing {test_set_name}...')
-        model.validation(test_loader, current_iter=opt['name'], tb_logger=None, save_img=opt['val']['save_img'])
+        model.validation(test_loader, current_iter=opt['name'], tb_logger=None, save_img=True)
 
 
 if __name__ == '__main__':

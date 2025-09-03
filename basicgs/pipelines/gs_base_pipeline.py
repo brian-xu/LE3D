@@ -205,7 +205,7 @@ class GSBasePipeline(BasePipeline):
             self.test()
 
             visuals = self.get_current_visuals()
-            out_img = tensor2img([visuals['result']])
+            out_img = visuals['result'].detach().permute(1,2,0).cpu().numpy()
             metric_data['img'] = out_img
             gt_img = tensor2img([visuals['gt']])
             metric_data['img2'] = gt_img
@@ -221,7 +221,7 @@ class GSBasePipeline(BasePipeline):
             torch.cuda.empty_cache()
 
             if save_img:
-                save_as = self.opt['val'].get('save_as', 'jpg')
+                save_as = "tiff"
                 if self.opt['is_train']:
                     img_name_pp = f'{img_name}_{current_iter}'
                 else:
